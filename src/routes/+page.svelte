@@ -4,7 +4,7 @@
   import { createDialog, melt } from "@melt-ui/svelte";
 
   const {
-    elements: { trigger, overlay, content, portalled },
+    elements: { trigger, overlay, content, portalled, close },
     states: { open },
   } = createDialog({
     forceVisible: true,
@@ -37,10 +37,29 @@
 
 {#if $open}
   <div use:melt={$portalled}>
+    <!-- Overlay -->
     <div
       use:melt={$overlay}
       class="fixed inset-0 z-50 bg-black/50"
       transition:fade={{ duration: 100 }}
     ></div>
+
+    <!-- Content Dialog -->
+    <div
+      use:melt={$content}
+      class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 max-h-[70vh] w-[90vw] max-w-[450px] bg-lifemate-green rounded-lg shadow-md p-2"
+      transition:fade={{ duration: 75 }}
+    >
+      <div class="flex justify-between">
+        <div class="bg-white/20 w-72 h-12 rounded"></div>
+        <button use:melt={$close} class="bg-white/20 size-8 rounded"></button>
+      </div>
+
+      <div class="">
+        <div>Menu 1</div>
+        <div>Menu 2</div>
+        <div>Menu 3</div>
+      </div>
+    </div>
   </div>
 {/if}
